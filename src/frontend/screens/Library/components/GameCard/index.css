@@ -50,6 +50,21 @@
   height: 20px;
 }
 
+.gameCheckbox {
+  display: none;
+}
+
+.gameCheckboxOverlay {
+  display: block;
+  z-index: 999;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+}
+
 .gameCard.notAvailable > .gameCardStatus {
   color: var(--text-log);
   text-align: end;

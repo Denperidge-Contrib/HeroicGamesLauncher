@@ -391,6 +391,8 @@ const GameCard = ({
 
   const showSettingsButton = isInstalled && !isUninstalling && !isBrowserGame
 
+  const multiSelectCheckboxName = `${appName}-${runner}-checkbox`
+
   return (
     <div>
       {showUninstallModal && (
@@ -446,12 +448,25 @@ const GameCard = ({
                 {label}
               </span>
             )}
+            <button
+              onClick={() => {
+                const checkbox: HTMLInputElement | null =
+                  document.querySelector(`[name="${multiSelectCheckboxName}"]`)
+                if (checkbox) checkbox.checked = !checkbox.checked
+              }}
+              className="gameCheckboxOverlay"
+            ></button>
             <span
               className={classNames('gameTitle', {
                 active: haveStatus,
                 installed: isInstalled
               })}
             >
+              <input
+                type="checkbox"
+                className="gameCheckbox"
+                name={multiSelectCheckboxName}
+              ></input>
               <span>{title}</span>
             </span>
             <span

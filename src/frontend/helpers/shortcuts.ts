@@ -1,8 +1,20 @@
 export const initShortcuts = () => {
+  let gamesInView: Array<Element> | undefined
+
   document.addEventListener('keydown', (e) => {
     // Ctrl+F or Cmd+F, focus search bar
     if ((e.ctrlKey || e.metaKey) && e.key.toLocaleLowerCase() === 'f') {
       document.getElementById('search')?.focus()
+    }
+
+    if (e.shiftKey) {
+      gamesInView = Array.from(document.getElementsByClassName('gameListItem'))
+      if (gamesInView.length > 0) {
+        gamesInView.forEach((elem) => {
+          const inp = elem.querySelector('input')
+          if (inp) inp.style.display = 'initial'
+        })
+      }
     }
 
     if (e.ctrlKey || e.metaKey) {
@@ -19,6 +31,16 @@ export const initShortcuts = () => {
       if (e.key === 'I') {
         window.api.processShortcut(`ctrl+shift+${e.key.toLocaleLowerCase()}`)
       }
+    }
+  })
+
+  document.addEventListener('keyup', (e) => {
+    if (gamesInView != undefined && !e.shiftKey) {
+      gamesInView.forEach((elem) => {
+        const inp = elem.querySelector('input')
+        if (inp) inp.style.display = 'none'
+      })
+      gamesInView = undefined
     }
   })
 }
